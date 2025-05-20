@@ -1,0 +1,21 @@
+.app-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-inline: 1rem;
+    height: 100vh;               /* para que el scroll del player-list funcione */
+  
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: flex-start;
+      padding-inline: 2rem;
+    }
+  }
+  
+  .field-column {
+    width: 50%;                  /* la cancha ocupa la mitad */
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }

@@ -1,0 +1,13 @@
+.player-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem;
+
+  @media (min-width: 768px) {
+    flex: 1;
+    max-width: 100%;
+    align-self: flex-start;
+  }
+}

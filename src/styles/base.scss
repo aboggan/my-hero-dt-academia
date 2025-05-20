@@ -1,0 +1,33 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: sans-serif;
+    background: #111;
+    color: #eee;
+  }
+  
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Responsive layout */
+  .app-layout {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 2rem;
+  
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+  

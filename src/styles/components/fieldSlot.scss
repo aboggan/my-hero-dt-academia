@@ -1,0 +1,36 @@
+.field-slot {
+  width: 100px;
+  height: 100px;
+  background: rgba(255,255,255,0.1);
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  cursor: grab;
+  &.dragging {
+    cursor: grabbing;
+  }
+}
+
+.field-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.field-slot .slot-name {
+  display: block;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.15rem 0;
+  border-radius: 0 0 4px 4px;
+  font-size: 0.75rem;
+  color: white;
+  text-align: center;
+  margin-top: auto;
+}
