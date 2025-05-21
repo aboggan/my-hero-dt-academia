@@ -1,13 +1,22 @@
+/* Mobile-first (base) */
 .player-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  padding: 1rem;
+  align-content: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  height: 60vh;        /* altura fija igual a la cancha en mobile */
+  overflow-y: auto;
+}
 
-  @media (min-width: 768px) {
-    flex: 1;
-    max-width: 100%;
-    align-self: flex-start;
+/* Desktop */
+@media (min-width: 768px) {
+  .player-list {
+    gap: 1rem;
+    padding: 1rem;
+    flex: 1;           /* usa todo el espacio restante */
+    height: 900px;     /* altura fija igual a la cancha en desktop */
+    overflow-y: auto;
+    align-content: flex-start;
   }
 }

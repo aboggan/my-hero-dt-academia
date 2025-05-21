@@ -52,7 +52,7 @@ function FieldSlot({ index }) {
           <div className="slot-name">{player.name}</div>
         </>
       ) : (
-        <span>#{index + 1}</span>
+        <span></span>
       )}
     </div>
   );
