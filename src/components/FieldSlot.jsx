@@ -6,6 +6,7 @@ function FieldSlot({ index }) {
   const {
     slots,
     setPlayerAtSlot,
+    swapPlayers,
     selectedPlayer,
     setSelectedPlayer,
   } = useField();
@@ -13,25 +14,34 @@ function FieldSlot({ index }) {
   const [dragging, setDragging] = useState(false);
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const playerId = slots[index];
-  const player = players.find((p) => p.id === playerId);
+  const player = players.find(p => p.id === playerId);
 
   const highlightEmpty = isTouchDevice && selectedPlayer && !player;
-  const highlightSelectedSlot = isTouchDevice && player && selectedPlayer === playerId;
+  const highlightSelected = isTouchDevice && player && selectedPlayer === playerId;
 
   const handleClick = () => {
     if (!isTouchDevice) return;
-    if (player) {
-      setSelectedPlayer(selectedPlayer === playerId ? null : playerId);
+
+    if (player && selectedPlayer) {
+      // swap two players already on the field
+      const fromIndex = slots.findIndex(id => id === selectedPlayer);
+      swapPlayers(fromIndex, index);
+      setSelectedPlayer(null);
+    } else if (player) {
+      // select this player for moving
+      setSelectedPlayer(playerId);
     } else if (selectedPlayer) {
+      // place selected player into empty slot
       setPlayerAtSlot(index, selectedPlayer);
       setSelectedPlayer(null);
     }
   };
 
-  const handleDragStart = (e) => {
+  const handleDragStart = e => {
     if (isTouchDevice || !playerId) return;
     setDragging(true);
     e.dataTransfer.setData('playerId', playerId);
+    e.dataTransfer.setData('originIndex', index.toString());
     const img = new Image();
     img.src = player.image;
     img.onload = () => {
@@ -43,16 +53,16 @@ function FieldSlot({ index }) {
     };
   };
 
-  const handleDragEnd = () => {
-    setDragging(false);
-  };
-
-  const handleDragOver = (e) => e.preventDefault();
-
-  const handleDrop = (e) => {
+  const handleDragEnd = () => setDragging(false);
+  const handleDragOver = e => e.preventDefault();
+  const handleDrop = e => {
     e.preventDefault();
     const droppedId = e.dataTransfer.getData('playerId');
-    if (droppedId) {
+    if (!droppedId) return;
+    const origin = e.dataTransfer.getData('originIndex');
+    if (origin) {
+      swapPlayers(parseInt(origin, 10), index);
+    } else {
       setPlayerAtSlot(index, droppedId);
     }
   };
@@ -67,7 +77,7 @@ function FieldSlot({ index }) {
       className={
         'field-slot' +
         (highlightEmpty ? ' highlight' : '') +
-        (highlightSelectedSlot ? ' selected-slot' : '') +
+        (highlightSelected ? ' selected-slot' : '') +
         (dragging ? ' dragging' : '')
       }
       onClick={handleClick}
@@ -77,13 +87,11 @@ function FieldSlot({ index }) {
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      {player ? (
+      {player && (
         <>
           <img src={player.image} alt={player.name} />
           <div className="slot-name">{player.name}</div>
         </>
-      ) : (
-        <span></span>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 const FieldContext = createContext();
 
@@ -7,27 +7,40 @@ export function FieldProvider({ children }) {
   const [selectedPlayer, setSelectedPlayer] = useState(null);
 
   const setPlayerAtSlot = (index, playerId) => {
-    const newSlots = [...slots];
-    const currentIndex = newSlots.findIndex((id) => id === playerId);
-    if (currentIndex !== -1) newSlots[currentIndex] = null;
-    newSlots[index] = playerId;
-    setSlots(newSlots);
+    setSlots(prev => {
+      const newSlots = [...prev];
+      const currentIndex = newSlots.findIndex(id => id === playerId);
+      if (currentIndex !== -1) newSlots[currentIndex] = null;
+      newSlots[index] = playerId;
+      return newSlots;
+    });
   };
 
   const removePlayer = (playerId) => {
-    setSlots((prev) => prev.map((id) => (id === playerId ? null : id)));
+    setSlots(prev =>
+      prev.map(id => (id === playerId ? null : id))
+    );
+  };
+
+  const swapPlayers = (fromIndex, toIndex) => {
+    setSlots(prev => {
+      const newSlots = [...prev];
+      const tmp = newSlots[toIndex];
+      newSlots[toIndex] = newSlots[fromIndex];
+      newSlots[fromIndex] = tmp;
+      return newSlots;
+    });
   };
 
   return (
-    <FieldContext.Provider
-      value={{
-        slots,
-        setPlayerAtSlot,
-        removePlayer,
-        selectedPlayer,
-        setSelectedPlayer,
-      }}
-    >
+    <FieldContext.Provider value={{
+      slots,
+      setPlayerAtSlot,
+      removePlayer,
+      swapPlayers,
+      selectedPlayer,
+      setSelectedPlayer,
+    }}>
       {children}
     </FieldContext.Provider>
   );
