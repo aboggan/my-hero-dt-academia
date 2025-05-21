@@ -1,54 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useField } from '../context/FieldContext';
 import { players } from '../utils/players';
 
 function FieldSlot({ index }) {
-  const { slots, setPlayerAtSlot } = useField();
+  const {
+    slots,
+    setPlayerAtSlot,
+    selectedPlayer,
+    setSelectedPlayer,
+  } = useField();
+
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const playerId = slots[index];
-  const player = players.find(p => p.id === playerId);
-  const [imgError, setImgError] = useState(false);
-  const [dragging, setDragging] = useState(false);
+  const player = players.find((p) => p.id === playerId);
 
-  // Si arrastras dentro de la cancha
-  const handleDragStart = e => {
-    if (!playerId) return;
-    setDragging(true);
-    e.dataTransfer.setData('playerId', playerId);
+  const highlightEmpty = isTouchDevice && selectedPlayer && !player;
+  const highlightSelectedSlot = isTouchDevice && player && selectedPlayer === playerId;
+
+  const handleClick = () => {
+    if (!isTouchDevice) return;
+    if (player) {
+      setSelectedPlayer(selectedPlayer === playerId ? null : playerId);
+    } else if (selectedPlayer) {
+      setPlayerAtSlot(index, selectedPlayer);
+      setSelectedPlayer(null);
+    }
   };
 
-  const handleDragEnd = () => {
-    setDragging(false);
-  };
-
-  // Para asegurar reset si se suelta fuera
-  useEffect(() => {
-    window.addEventListener('dragend', handleDragEnd);
-    return () => window.removeEventListener('dragend', handleDragEnd);
-  }, []);
-
-  const handleDrop = e => {
+  const handleDragOver = (e) => e.preventDefault();
+  const handleDrop = (e) => {
     e.preventDefault();
     const droppedId = e.dataTransfer.getData('playerId');
     if (droppedId) setPlayerAtSlot(index, droppedId);
   };
-  const handleDragOver = e => e.preventDefault();
 
   return (
     <div
-      className={`field-slot${dragging ? ' dragging' : ''}`}
+      className={
+        'field-slot' +
+        (highlightEmpty ? ' highlight' : '') +
+        (highlightSelectedSlot ? ' selected-slot' : '')
+      }
+      onClick={handleClick}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
       {player ? (
         <>
-          <img
-            src={imgError ? `https://via.placeholder.com/80x80?text=${player.name}` : player.image}
-            alt={player.name}
-            draggable
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-            onError={() => setImgError(true)}
-          />
+          <img src={player.image} alt={player.name} draggable={!isTouchDevice} />
           <div className="slot-name">{player.name}</div>
         </>
       ) : (

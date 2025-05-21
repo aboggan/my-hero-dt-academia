@@ -2,7 +2,7 @@ export const formations = {
     '4-3-3': {
       name: '4-3-3',
       positions: [
-        { top: '85%', left: '50%' }, // GK
+        { top: '90%', left: '50%' }, // GK
         { top: '65%', left: '20%' }, // LB
         { top: '70%', left: '40%' }, // CB
         { top: '70%', left: '60%' }, // CB
@@ -19,7 +19,7 @@ export const formations = {
     '4-2-3-1': {
       name: '4-2-3-1',
       positions: [
-        { top: '85%', left: '50%' }, // GK
+        { top: '92%', left: '50%' }, // GK
         { top: '65%', left: '20%' }, // LB
         { top: '72%', left: '40%' }, // CB
         { top: '72%', left: '60%' }, // CB

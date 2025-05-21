@@ -1,39 +1,44 @@
-/* Mobile-first (base) */
 .field-slot {
+  position: relative;
   width: 50px;
   height: 50px;
-  background: rgba(255,255,255,0.1);
-  border: 1px dashed #ccc;
+  background: rgba(255, 255, 255, 0.1); 
   border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
   overflow: hidden;
   cursor: grab;
-}
+  box-shadow: 0 0 4px rgba(0,0,0,0.3);
 
-.field-slot.dragging {
-  cursor: grabbing;
-}
+  &.dragging {
+    cursor: grabbing;
+  }
 
-.field-slot img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
-.field-slot .slot-name {
-  display: block;
-  width: 100%;
-  background: rgba(0,0,0,0.6);
-  padding: 0.15rem 0;
-  border-radius: 0 0 4px 4px;
-  font-size: 0.6rem;
-  color: white;
-  text-align: center;
-  margin-top: auto;
+  .slot-name {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0.3rem 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 0.6rem;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  &.highlight {
+    box-shadow: inset 0 0 0 3px gold;
+  }
+
+  &.selected-slot {
+    box-shadow: 0 0 0 3px #0af;
+  }
 }
 
 /* Desktop */
@@ -41,9 +46,10 @@
   .field-slot {
     width: 120px;
     height: 120px;
-    border-width: 2px;
+    border: 2px solid #ccc;
   }
   .field-slot .slot-name {
-    font-size: 0.90rem;
+    font-size: 0.9rem;
+    padding: 0.4rem 0;
   }
 }
