@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useField } from '../context/FieldContext';
 
-function PlayerCard({ player }) {
+function PlayerCard({ player, selected = false  }) {
   const {
     selectedPlayer,
     setSelectedPlayer
@@ -51,6 +51,7 @@ function PlayerCard({ player }) {
     <div
       className={[
         'player-card',
+        selected && ' selected',
         isActive && 'active',
         dragging && 'dragging'
       ].filter(Boolean).join(' ')}
