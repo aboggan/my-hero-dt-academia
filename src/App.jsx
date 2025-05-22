@@ -15,9 +15,10 @@ function App() {
     <>
       <Hero />
       <Intro />
-      <FieldProvider>
-        <FormationProvider>
-          <PlayerListProvider>
+      <PlayerListProvider>
+        <FieldProvider>
+          <FormationProvider>
+
             <div className="app-layout">
               <div className="field-column">
                 <div className="field-controls">
@@ -32,9 +33,10 @@ function App() {
                 <PlayerList />
               </div>
             </div>
-          </PlayerListProvider>
-        </FormationProvider>
-      </FieldProvider>
+
+          </FormationProvider>
+        </FieldProvider>
+      </PlayerListProvider>
     </>
   );
 }

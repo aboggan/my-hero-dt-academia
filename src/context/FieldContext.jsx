@@ -1,23 +1,32 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { usePlayerList } from './PlayerListContext';
 
-const STORAGE_KEY = 'myHeroDT_FieldState';
+const STORAGE_KEY = 'myHeroDT_FieldStates';
 const FieldContext = createContext();
 
 export function FieldProvider({ children }) {
-  // 1) Cargo del storage o arranco vacío
-  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-  const [slots, setSlots] = useState(saved?.slots || Array(11).fill(null));
+  const { listId } = usePlayerList();
+  const [slots, setSlots] = useState(Array(11).fill(null)); // Inicializa vacío
   const [selectedPlayer, setSelectedPlayer] = useState(null);
 
-  // 2) Cada vez que cambian los slots, lo guardo
+  // Al cambiar listId, restaurá el field de esa lista
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ slots }));
-  }, [slots]);
+    const storedFields = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    setSlots(storedFields[listId] || Array(11).fill(null));
+    setSelectedPlayer(null);
+  }, [listId]);
+
+  // Guardá siempre que cambian los slots
+  useEffect(() => {
+    if (!listId) return;
+    const storedFields = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    storedFields[listId] = slots;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(storedFields));
+  }, [slots, listId]);
 
   const setPlayerAtSlot = (index, playerId) => {
     setSlots(prev => {
       const newSlots = [...prev];
-      // si ya existía ese player en otro slot, lo limpio
       const old = newSlots.findIndex(id => id === playerId);
       if (old !== -1) newSlots[old] = null;
       newSlots[index] = playerId;
@@ -37,10 +46,7 @@ export function FieldProvider({ children }) {
     });
   };
 
-  const resetField = () => {
-    setSlots(Array(11).fill(null));
-    setSelectedPlayer(null);
-  };
+  const resetField = () => setSlots(Array(11).fill(null));
 
   return (
     <FieldContext.Provider value={{
@@ -57,4 +63,6 @@ export function FieldProvider({ children }) {
   );
 }
 
-export const useField = () => useContext(FieldContext);
+export function useField() {
+  return useContext(FieldContext);
+}
