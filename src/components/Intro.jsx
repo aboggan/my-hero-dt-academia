@@ -4,14 +4,16 @@ import '../styles/components/intro.scss';
 export default function Intro() {
   return (
     <section className="intro">
-      <p>¡Bienvenido a My Hero DT Academia!</p>
+
+      <p>Lo hice para jijearnos un rato. No sean haters.</p>
       <p>
-        Este es un proyecto <strong>fan-made</strong>. 
-        ¡Colabora con ideas e imágenes en 
+        Estaría muy bueno tener todas las imagenes con camisetas, hice algunas pero es una pajita.
+
+      </p>
+      <p>Si quieren colaborar me escriben a&nbsp;
         <a href="https://twitter.com/kamebostero" target="_blank" rel="noopener noreferrer">
           @kamebostero
-        </a> en Twitter!
-      </p>
+        </a> </p>
     </section>
   );
 }

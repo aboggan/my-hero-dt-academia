@@ -48,6 +48,7 @@ export default function ShareButton() {
     <button
       onClick={handleShare}
       className="share-button"
+      disabled={isDisabled}
     >
       <GiSoccerField className="icon-field" />
       Compartir <FiShare2 className="icon-share" />
