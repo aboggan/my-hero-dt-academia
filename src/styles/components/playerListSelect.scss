@@ -1,22 +1,54 @@
 .player-list-select {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  
-    label {
-      font-weight: bold;
-      color: #fff;
-    }
-  
-    select {
-      padding: 0.4rem 0.8rem;
-      border-radius: 6px;
-      border: none;
-      font-size: 1rem;
-      background: #333;
-      color: #fff;
-      cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  label {
+    font-size: 1.08rem;
+    margin-right: 0.5rem;
+    color: #f3f4f6;
+    font-weight: 500;
+    line-height: 40px; // Igual que el select, más chico
+    vertical-align: middle;
+  }
+
+  select {
+    min-height: 36px; // Más compacto
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0 1rem; // Solo horizontal
+    border: none;
+    border-radius: 0.5rem;
+    background: #343434;
+    color: #fff;
+    transition: background 0.15s;
+    min-width: 90px;
+    cursor: pointer;
+
+    &:focus,
+    &:hover {
+      background: #222;
     }
   }
-  
+}
+
+@media (min-width: 768px) {
+  .player-list-select {
+
+    align-items: start;
+    justify-content: flex-start;
+
+    label {
+      font-size: 1.4rem;
+      line-height: 50px;
+      margin-right: 0.7rem;
+    }
+
+    select {
+      min-height: 50px;
+      font-size: 1.08rem;
+      padding: 0 2rem;
+      min-width: 140px;
+    }
+  }
+}

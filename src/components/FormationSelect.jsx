@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormation } from '../context/FormationContext';
 import { formations } from '../utils/formations';
 
-function FormationSelect() {
+export default function FormationSelect() {
   const { formationId, setFormationId } = useFormation();
 
   return (
@@ -20,5 +20,3 @@ function FormationSelect() {
     </div>
   );
 }
-
-export default FormationSelect;

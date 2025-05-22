@@ -1,0 +1,47 @@
+.field-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;        // Centra todo horizontalmente en mobile
+    gap: 1rem;
+    margin-bottom: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  
+    .formation-row {
+      margin-bottom: 0.5rem;
+      width: auto;              // <= ACA!
+      display: flex;
+      justify-content: center;
+    }
+  
+    .button-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: auto;              // <= ACA!
+      align-items: center;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .field-controls {
+      flex-direction: row;
+      align-items: center;
+      gap: 2rem;
+  
+      .formation-row {
+        margin-bottom: 0;
+        width: auto;
+        justify-content: flex-start;
+      }
+  
+      .button-row {
+        flex-direction: row-reverse;
+        gap: 1rem;
+        width: auto;
+        align-items: center;
+      }
+    }
+  }
+  

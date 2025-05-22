@@ -14,7 +14,7 @@ export default function PlayerListSelect() {
 
   return (
     <div className="player-list-select">
-      <label htmlFor="playerList">Lista:</label>
+      <label htmlFor="playerList">Lista de jugadores:</label>
       <select
         id="playerList"
         value={listId}

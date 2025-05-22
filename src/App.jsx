@@ -5,11 +5,11 @@ import { FormationProvider } from './context/FormationContext';
 import { PlayerListProvider } from './context/PlayerListContext';
 import FormationSelect from './components/FormationSelect';
 import PlayerListSelect from './components/PlayerListSelect';
-import SaveControls from './components/SaveControls';
 import Field from './components/Field';
 import PlayerList from './components/PlayerList';
 import Intro from './components/Intro';
 import ShareButton from "./components/ShareButton";
+import ResetButton from './components/ResetButton';
 function App() {
   return (
     <>
@@ -22,9 +22,13 @@ function App() {
             <div className="app-layout">
               <div className="field-column">
                 <div className="field-controls">
-                  <FormationSelect />
-                  <SaveControls />
-                  <ShareButton />
+                  <div className="formation-row">
+                    <FormationSelect />
+                  </div>
+                  <div className="button-row">
+                    <ShareButton />
+                    <ResetButton />
+                  </div>
                 </div>
                 <Field />
               </div>

@@ -1,18 +1,19 @@
-.share-button {
+.reset-button {
   font-size: 1.12rem;
   font-weight: 600;
   padding: 0.48rem 2rem;
   border: none;
   border-radius: 0.5rem;
-  background: #207744;
+  background: #ad2929;
   color: #fff;
   letter-spacing: 0.01em;
-  box-shadow: 0 2px 8px rgba(32, 119, 68, 0.14);
+  box-shadow: 0 2px 8px rgba(173, 41, 41, 0.14);
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.65em; // espacio entre texto e íconos
+  gap: 0.65em;
   min-height: 65px;
+
   transition:
     background 0.18s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
@@ -21,20 +22,20 @@
 
   &:hover,
   &:focus {
-    background: #25a35a;
+    background: #ea4848;
     color: #fff;
-    box-shadow: 0 6px 24px rgba(37, 163, 90, 0.17);
+    box-shadow: 0 6px 24px rgba(234, 72, 72, 0.17);
     transform: translateY(-3px) scale(1.04);
   }
 
   &:active {
-    background: #14572e;
+    background: #7a1919;
     color: #fff;
     transform: translateY(1px) scale(0.97);
   }
 
   &:disabled {
-    background: #a8dbc2;
+    background: #e0a6a6;
     color: #fff;
     opacity: 0.68;
     cursor: not-allowed;
@@ -48,18 +49,26 @@
     vertical-align: middle;
     flex-shrink: 0;
 
-    &.icon-field {
-      font-size: 2.5em;
-      transform: rotate(90deg);
+    &.icon-reset {
+      font-size: 1.6em;
+      margin-right: 0.18em;
+      transform: rotate(-20deg);
       transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
 }
 
-/* Ejemplo de media query para desktop si querés después: */
-@media (min-width: 768px) {
-  .share-button {
-    font-size: 1.18rem;
-    padding: 0.5rem;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
+}
+
+.icon-reset {
+  display: inline-block;
+  transition: transform 0.18s;
+}
+
+.icon-reset.spinning {
+  animation: spin 0.7s linear;
 }
