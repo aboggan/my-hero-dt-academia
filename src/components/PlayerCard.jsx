@@ -27,6 +27,7 @@ function PlayerCard({ player, selected = false  }) {
     if (isTouchDevice) return;
     setDragging(true);
     e.dataTransfer.setData('playerId', player.id);
+    e.dataTransfer.setData('text/plain', player.id);
     const img = new Image();
     img.src = imageSrc;
     img.onload = () => {

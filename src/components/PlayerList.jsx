@@ -1,19 +1,20 @@
 import React from 'react';
-import { players } from '../utils/players';
 import PlayerCard from './PlayerCard';
 import { useField } from '../context/FieldContext';
+import { usePlayerList } from '../context/PlayerListContext';
+import { playerLists } from '../utils/playerLists';
 
-function PlayerList() {
+export default function PlayerList() {
   const { slots } = useField();
+  const { listId } = usePlayerList();
+  const players = playerLists[listId].players;
 
   return (
     <div className="player-list">
-      {players.map(player => {
-        const selected = slots.includes(player.id);
-        return <PlayerCard key={player.id} player={player} selected={selected} />;
+      {players.map(p => {
+        const selected = slots.includes(p.id);
+        return <PlayerCard key={p.id} player={p} selected={selected} />;
       })}
     </div>
   );
 }
-
-export default PlayerList;

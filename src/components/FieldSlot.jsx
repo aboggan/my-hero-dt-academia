@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useField } from '../context/FieldContext';
-import { players } from '../utils/players';
+import { usePlayerList } from '../context/PlayerListContext';
+import { playerLists } from '../utils/playerLists';
 
 function FieldSlot({ index }) {
   const {
@@ -14,8 +15,9 @@ function FieldSlot({ index }) {
   const [dragging, setDragging] = useState(false);
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const playerId = slots[index];
-  const player = players.find(p => p.id === playerId);
-
+  
+  const { listId } = usePlayerList();
+  const player = playerLists[listId].players.find(p => p.id === playerId);
   const highlightEmpty = isTouchDevice && selectedPlayer && !player;
   const highlightSelected = isTouchDevice && player && selectedPlayer === playerId;
 
@@ -40,7 +42,10 @@ function FieldSlot({ index }) {
   const handleDragStart = e => {
     if (isTouchDevice || !playerId) return;
     setDragging(true);
+
+    e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('playerId', playerId);
+
     e.dataTransfer.setData('originIndex', index.toString());
     const img = new Image();
     img.src = player.image;
@@ -54,10 +59,16 @@ function FieldSlot({ index }) {
   };
 
   const handleDragEnd = () => setDragging(false);
-  const handleDragOver = e => e.preventDefault();
+
+  const handleDragOver = e => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
   const handleDrop = e => {
     e.preventDefault();
-    const droppedId = e.dataTransfer.getData('playerId');
+    const droppedId =
+      e.dataTransfer.getData('playerId') ||
+      e.dataTransfer.getData('text/plain');
     if (!droppedId) return;
     const origin = e.dataTransfer.getData('originIndex');
     if (origin) {

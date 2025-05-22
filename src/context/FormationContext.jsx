@@ -1,10 +1,16 @@
-import { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const FormationContext = createContext();
 
 export function FormationProvider({ children }) {
-  const [formationId, setFormationId] = useState('4-3-3'); // fallback por defecto
+  // Restaurar formación guardada o usar 4-3-3 por defecto
+  const savedFormation = localStorage.getItem('myHeroDT_Formation') || '4-3-3';
+  const [formationId, setFormationId] = useState(savedFormation);
 
+  // Cada vez que cambie, guardar en localStorage
+  useEffect(() => {
+    localStorage.setItem('myHeroDT_Formation', formationId);
+  }, [formationId]);
   return (
     <FormationContext.Provider value={{ formationId, setFormationId }}>
       {children}

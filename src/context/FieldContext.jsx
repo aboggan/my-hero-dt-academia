@@ -1,35 +1,45 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
+const STORAGE_KEY = 'myHeroDT_FieldState';
 const FieldContext = createContext();
 
 export function FieldProvider({ children }) {
-  const [slots, setSlots] = useState(Array(11).fill(null));
+  // 1) Cargo del storage o arranco vacío
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+  const [slots, setSlots] = useState(saved?.slots || Array(11).fill(null));
   const [selectedPlayer, setSelectedPlayer] = useState(null);
+
+  // 2) Cada vez que cambian los slots, lo guardo
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ slots }));
+  }, [slots]);
 
   const setPlayerAtSlot = (index, playerId) => {
     setSlots(prev => {
       const newSlots = [...prev];
-      const currentIndex = newSlots.findIndex(id => id === playerId);
-      if (currentIndex !== -1) newSlots[currentIndex] = null;
+      // si ya existía ese player en otro slot, lo limpio
+      const old = newSlots.findIndex(id => id === playerId);
+      if (old !== -1) newSlots[old] = null;
       newSlots[index] = playerId;
       return newSlots;
     });
   };
 
   const removePlayer = (playerId) => {
-    setSlots(prev =>
-      prev.map(id => (id === playerId ? null : id))
-    );
+    setSlots(prev => prev.map(id => (id === playerId ? null : id)));
   };
 
   const swapPlayers = (fromIndex, toIndex) => {
     setSlots(prev => {
       const newSlots = [...prev];
-      const tmp = newSlots[toIndex];
-      newSlots[toIndex] = newSlots[fromIndex];
-      newSlots[fromIndex] = tmp;
+      [newSlots[fromIndex], newSlots[toIndex]] = [newSlots[toIndex], newSlots[fromIndex]];
       return newSlots;
     });
+  };
+
+  const resetField = () => {
+    setSlots(Array(11).fill(null));
+    setSelectedPlayer(null);
   };
 
   return (
@@ -40,6 +50,7 @@ export function FieldProvider({ children }) {
       swapPlayers,
       selectedPlayer,
       setSelectedPlayer,
+      resetField,
     }}>
       {children}
     </FieldContext.Provider>
