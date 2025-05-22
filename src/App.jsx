@@ -1,14 +1,15 @@
 import React from 'react';
 import Hero from './components/Hero';
-import { FieldProvider }      from './context/FieldContext';
-import { FormationProvider }  from './context/FormationContext';
+import { FieldProvider } from './context/FieldContext';
+import { FormationProvider } from './context/FormationContext';
 import { PlayerListProvider } from './context/PlayerListContext';
-import FormationSelect        from './components/FormationSelect';
-import PlayerListSelect       from './components/PlayerListSelect';
-import SaveControls           from './components/SaveControls';
-import Field                  from './components/Field';
-import PlayerList             from './components/PlayerList';
+import FormationSelect from './components/FormationSelect';
+import PlayerListSelect from './components/PlayerListSelect';
+import SaveControls from './components/SaveControls';
+import Field from './components/Field';
+import PlayerList from './components/PlayerList';
 import Intro from './components/Intro';
+import ShareButton from "./components/ShareButton";
 function App() {
   return (
     <>
@@ -22,7 +23,7 @@ function App() {
                 <div className="field-controls">
                   <FormationSelect />
                   <SaveControls />
-                  {/* <ShareButton /> */}
+                  <ShareButton />
                 </div>
                 <Field />
               </div>

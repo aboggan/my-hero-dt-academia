@@ -23,21 +23,41 @@ function FieldSlot({ index }) {
 
   const handleClick = () => {
     if (!isTouchDevice) return;
-
+  
+    // 1. Si hay jugador en el slot y hay uno seleccionado
     if (player && selectedPlayer) {
-      // swap two players already on the field
       const fromIndex = slots.findIndex(id => id === selectedPlayer);
-      swapPlayers(fromIndex, index);
-      setSelectedPlayer(null);
-    } else if (player) {
-      // select this player for moving
-      setSelectedPlayer(playerId);
-    } else if (selectedPlayer) {
-      // place selected player into empty slot
+  
+      if (fromIndex !== -1) {
+        // Ambos están en el field, swap
+        swapPlayers(fromIndex, index);
+        setSelectedPlayer(null);
+        return;
+      } else {
+        // selectedPlayer NO está en el field, reemplaza al actual
+        setPlayerAtSlot(index, selectedPlayer);
+        setSelectedPlayer(null);
+        return;
+      }
+    }
+  
+    // 2. Si el slot está vacío y hay jugador seleccionado
+    if (!player && selectedPlayer) {
       setPlayerAtSlot(index, selectedPlayer);
       setSelectedPlayer(null);
+      return;
     }
+  
+    // 3. Si hay jugador en el slot y no hay ninguno seleccionado, selecciona este
+    if (player && !selectedPlayer) {
+      setSelectedPlayer(playerId);
+      return;
+    }
+  
+    // 4. Si tocás sin nada, des-selecciona
+    setSelectedPlayer(null);
   };
+  
 
   const handleDragStart = e => {
     if (isTouchDevice || !playerId) return;
