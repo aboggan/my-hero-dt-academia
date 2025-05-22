@@ -3,8 +3,8 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const FormationContext = createContext();
 
 export function FormationProvider({ children }) {
-  // Restaurar formación guardada o usar 4-3-3 por defecto
-  const savedFormation = localStorage.getItem('myHeroDT_Formation') || '4-3-3';
+  // Restaurar formación guardada o usar 4-2-3-1 por defecto
+  const savedFormation = localStorage.getItem('myHeroDT_Formation') || '4-2-3-1';
   const [formationId, setFormationId] = useState(savedFormation);
 
   // Cada vez que cambie, guardar en localStorage

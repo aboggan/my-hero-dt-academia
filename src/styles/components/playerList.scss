@@ -13,9 +13,11 @@
 @media (min-width: 768px) {
   .player-list {
     gap: 1rem;
-    padding: 1rem;
+    
+    padding: 0;
+    margin-top: 2.5rem;
     flex: 1;           /* usa todo el espacio restante */
-    height: 900px;     /* altura fija igual a la cancha en desktop */
+    height: 85vh;     /* altura fija igual a la cancha en desktop */
     overflow-y: auto;
     align-content: flex-start;
   }

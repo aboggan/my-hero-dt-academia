@@ -13,7 +13,7 @@ export const hayAlgoAhiPlayers = [
   { id: 'glossurabban',      name: 'Glossu Rabban',    image: '/assets/players/hayalgoahi/glossurabban.webp' },
   { id: 'hansolo',           name: 'Han Solo',         image: '/assets/players/hayalgoahi/hansolo.webp' },
   { id: 'hulk',              name: 'Hulk',             image: '/assets/players/hayalgoahi/hulk.webp' },
-  { id: 'immortanjoe',       name: 'Immortan Joe',     image: '/assets/players/hayalgoahi/inmortanjoe.webp' },
+  { id: 'inmortanjoe',       name: 'Inmortan Joe',     image: '/assets/players/hayalgoahi/inmortanjoe.webp' },
   { id: 'jax',               name: 'Jax',              image: '/assets/players/hayalgoahi/jax.webp' },
   { id: 'jamesgordon',       name: 'James Gordon',     image: '/assets/players/hayalgoahi/jamesgordon.webp' },
   { id: 'lexluthor',         name: 'Lex Luthor',       image: '/assets/players/hayalgoahi/lexluthor.webp' },

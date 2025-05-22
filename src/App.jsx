@@ -15,12 +15,17 @@ function App() {
         <PlayerListProvider>
           <div className="app-layout">
             <div className="field-column">
-              <FormationSelect />
-              <PlayerListSelect />
-              <SaveControls />
+              <div className="field-controls">
+                <FormationSelect />
+                <SaveControls />
+                {/* próximamente: <ShareButton /> */}
+              </div>
               <Field />
             </div>
-            <PlayerList />
+            <div className="player-column">
+              <PlayerListSelect />
+              <PlayerList />
+            </div>
           </div>
         </PlayerListProvider>
       </FormationProvider>

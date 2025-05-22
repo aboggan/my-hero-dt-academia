@@ -9,7 +9,13 @@
   border: 4px solid #fff;
   border-radius: 16px;
 }
-
+.field-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 /* Desktop */
 @media (min-width: 768px) {
   .field {
